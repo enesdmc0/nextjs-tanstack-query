@@ -1,5 +1,5 @@
-import Posts from "./posts";
-import { getPosts } from "@/lib/action";
+import Posts from "./todos";
+import { getTodos } from "@/lib/action";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
 const Home = async () => {
@@ -7,7 +7,7 @@ const Home = async () => {
 
   await queryClient.prefetchQuery({
     queryKey: ["todos"],
-    queryFn: getPosts,
+    queryFn: getTodos,
   });
 
   return (

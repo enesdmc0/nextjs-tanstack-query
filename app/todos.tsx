@@ -1,8 +1,8 @@
 "use client";
-import { getPosts } from "@/lib/action";
+import { getTodos } from "@/lib/action";
 import { useQuery } from "@tanstack/react-query";
 
-interface Post {
+interface Todo {
   id: number;
   date: string;
   title: string;
@@ -14,12 +14,12 @@ interface Post {
 const Posts = () => {
   const { data } = useQuery({
     queryKey: ["todos"],
-    queryFn: () => getPosts(),
+    queryFn: () => getTodos(),
   });
-
+console.log(data);
   return (
     <div>
-      {data.map((post: Post) => (
+      {data?.items?.map((post: Todo) => (
         <div key={post.id}>{post.title}</div>
       ))}
     </div>
