@@ -1,8 +1,10 @@
 "use server"
+import { pb, Todo } from "./pocketbase";
+
 export const getTodos = async () => {
-    return await fetch(`${process.env.POCKETBASE_URL}/api/collections/todos/records`, {
-        headers: {
-            x_token: process.env.POCKETBASE_TOKEN!,
-        },
-    }).then((res) => res.json());
+    const todos = await pb.collection("todos").getList(1, 30, {
+        headers: { x_token: process.env.POCKETBASE_TOKEN! },
+    });
+
+    return todos?.items as Todo[];
 };

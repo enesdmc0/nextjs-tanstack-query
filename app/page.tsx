@@ -4,7 +4,6 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 
 const Home = async () => {
   const queryClient = new QueryClient();
-
   await queryClient.prefetchQuery({
     queryKey: ["todos"],
     queryFn: getTodos,
