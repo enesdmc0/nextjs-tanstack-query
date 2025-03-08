@@ -12,3 +12,6 @@ export interface Todo {
 
 export const pb = new Pocketbase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
 
+export const getClientPocketbase = () => {
+    return new Pocketbase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
+}
