@@ -3,9 +3,7 @@ import { getTodos } from "@/lib/action";
 import { Todo } from "@/lib/pocketbase";
 import { useQuery } from "@tanstack/react-query";
 
-
-
-const Posts = () => {
+export const Posts = () => {
   const { data } = useQuery({
     queryKey: ["todos"],
     queryFn: () => getTodos(),
@@ -19,5 +17,3 @@ const Posts = () => {
     </div>
   );
 };
-
-export default Posts;

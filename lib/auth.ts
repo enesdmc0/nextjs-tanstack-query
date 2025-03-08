@@ -43,3 +43,7 @@
 // export const logout = async () => {
 //     pb.authStore.clear();
 // }
+
+// export const getCurrentUser = () => {
+//     return pb.authStore.isValid ? pb.authStore.record : null;
+// }

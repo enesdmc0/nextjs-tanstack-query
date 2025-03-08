@@ -1,4 +1,4 @@
-import Posts from "./todos";
+import { Posts } from "./todos";
 import { getTodos } from "@/lib/action";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 

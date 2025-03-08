@@ -12,6 +12,3 @@ export interface Todo {
 
 export const pb = new Pocketbase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
 
-// export const getCurrentUser = () => {
-//     return pb.authStore.isValid ? pb.authStore.record : null;
-// }
