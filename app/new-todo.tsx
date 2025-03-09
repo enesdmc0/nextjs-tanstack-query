@@ -1,12 +1,10 @@
 "use client";
-
 import { createTodo } from "@/lib/action";
 import { useQueryClient } from "@tanstack/react-query";
-import React, { useState, useTransition } from "react";
+import React, { useState } from "react";
 
 export const NewTodo = () => {
   const [title, setTitle] = useState("");
-  const [isPending, startTransition] = useTransition();
   const queryClient = useQueryClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -17,15 +15,13 @@ export const NewTodo = () => {
     const formData = new FormData();
     formData.append("title", title);
 
-    startTransition(async () => {
-      try {
-        await createTodo(formData);
-        setTitle("");
-        queryClient.invalidateQueries({ queryKey: ["todos"] });
-      } catch (error) {
-        console.error("An error occurred while creating a todo", error);
-      }
-    });
+    try {
+      await createTodo(formData);
+      setTitle("");
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+    } catch (error) {
+      console.error("An error occurred while creating a todo", error);
+    }
   };
 
   return (
@@ -38,14 +34,13 @@ export const NewTodo = () => {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          disabled={isPending}
         />
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-600 text-white rounded-md px-4 py-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          disabled={isPending || !title.trim()}
+          disabled={!title.trim()}
         >
-          {isPending ? "Ekleniyor..." : "Ekle"}
+          Ekle
         </button>
       </div>
     </form>

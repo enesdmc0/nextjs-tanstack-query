@@ -1,11 +1,11 @@
 "use client";
 import { Todo } from "@/lib/pocketbase";
-import { useDeleteTodo, useOptimisticUpdate, useTodos } from "@/lib/useTodos";
+import { useDeleteTodo, useUpdateTodoStatus, useTodos } from "@/lib/useTodos";
 import { useState } from "react";
 
 export const Todos = () => {
   const { data, isLoading, isError, error } = useTodos();
-  const { mutate: updateMutate } = useOptimisticUpdate();
+  const { mutate: updateMutate } = useUpdateTodoStatus();
   const { mutate: deleteMutate } = useDeleteTodo();
   const [expandedTodo, setExpandedTodo] = useState<string | null>(null);
 

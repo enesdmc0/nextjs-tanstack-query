@@ -1,5 +1,4 @@
 "use server"
-// import { revalidatePath } from "next/cache";
 import { pb, Todo } from "./pocketbase";
 
 export const getTodos = async () => {
@@ -26,8 +25,10 @@ export const createTodo = async (formData: FormData) => {
         const todo = await pb.collection("todos").create({
             title,
             completed: false,
-        });
-        // revalidatePath("/")
+        },
+            {
+                headers: { x_token: process.env.POCKETBASE_TOKEN! },
+            });
         return todo as Todo;
     }
     catch (error) {
@@ -38,8 +39,9 @@ export const createTodo = async (formData: FormData) => {
 
 export const deleteTodo = async (id: string) => {
     try {
-        await pb.collection("todos").delete(id);
-        // revalidatePath("/")
+        await pb.collection("todos").delete(id, {
+            headers: { x_token: process.env.POCKETBASE_TOKEN! },
+        });
         return { success: true }
     }
     catch (error) {
@@ -52,8 +54,9 @@ export const updateTodo = async (id: string, completed: boolean) => {
     try {
         await pb.collection("todos").update(id, {
             completed,
+        }, {
+            headers: { x_token: process.env.POCKETBASE_TOKEN! },
         });
-        // revalidatePath("/")
         return { success: true }
     }
     catch (error) {
