@@ -1,24 +1,18 @@
 "use client";
-import { createTodo } from "@/lib/action";
-import { useQueryClient } from "@tanstack/react-query";
+import { useCreateTodo } from "@/lib/useTodos";
 import React, { useState } from "react";
 
 export const NewTodo = () => {
   const [title, setTitle] = useState("");
-  const queryClient = useQueryClient();
-
+  const { mutate } = useCreateTodo();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!title.trim()) return;
 
-    const formData = new FormData();
-    formData.append("title", title);
-
     try {
-      await createTodo(formData);
+      mutate({ title });
       setTitle("");
-      queryClient.invalidateQueries({ queryKey: ["todos"] });
     } catch (error) {
       console.error("An error occurred while creating a todo", error);
     }

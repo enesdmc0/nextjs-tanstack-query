@@ -1,10 +1,12 @@
 "use server"
 import { pb, Todo } from "./pocketbase";
 
+const x_token = process.env.POCKETBASE_TOKEN!
+
 export const getTodos = async () => {
     try {
         const todos = await pb.collection("todos").getList(1, 30, {
-            headers: { x_token: process.env.POCKETBASE_TOKEN! },
+            headers: { x_token },
         });
         return todos?.items as Todo[];
     }
@@ -14,9 +16,8 @@ export const getTodos = async () => {
     }
 };
 
-export const createTodo = async (formData: FormData) => {
+export const createTodo = async ({ title }: { title: string }) => {
     try {
-        const title = formData.get("title") as string;
 
         if (!title || title.trim() === "") {
             throw new Error("Title is required")
@@ -25,10 +26,9 @@ export const createTodo = async (formData: FormData) => {
         const todo = await pb.collection("todos").create({
             title,
             completed: false,
-        },
-            {
-                headers: { x_token: process.env.POCKETBASE_TOKEN! },
-            });
+        }, {
+            headers: { x_token },
+        });
         return todo as Todo;
     }
     catch (error) {
@@ -40,7 +40,7 @@ export const createTodo = async (formData: FormData) => {
 export const deleteTodo = async (id: string) => {
     try {
         await pb.collection("todos").delete(id, {
-            headers: { x_token: process.env.POCKETBASE_TOKEN! },
+            headers: { x_token },
         });
         return { success: true }
     }
@@ -55,7 +55,7 @@ export const updateTodo = async (id: string, completed: boolean) => {
         await pb.collection("todos").update(id, {
             completed,
         }, {
-            headers: { x_token: process.env.POCKETBASE_TOKEN! },
+            headers: { x_token },
         });
         return { success: true }
     }

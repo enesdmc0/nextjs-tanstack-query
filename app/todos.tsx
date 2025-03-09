@@ -1,13 +1,14 @@
 "use client";
+import { useState } from "react";
 import { Todo } from "@/lib/pocketbase";
 import { useDeleteTodo, useUpdateTodoStatus, useTodos } from "@/lib/useTodos";
-import { useState } from "react";
 
 export const Todos = () => {
-  const { data, isLoading, isError, error } = useTodos();
-  const { mutate: updateMutate } = useUpdateTodoStatus();
-  const { mutate: deleteMutate } = useDeleteTodo();
   const [expandedTodo, setExpandedTodo] = useState<string | null>(null);
+
+  const { data } = useTodos();
+  const { mutate: deleteMutate } = useDeleteTodo();
+  const { mutate: updateMutate } = useUpdateTodoStatus();
 
   const handleUpdate = (todo: Todo) => {
     updateMutate({
@@ -19,9 +20,6 @@ export const Todos = () => {
   const handleDelete = (id: string) => {
     deleteMutate({ id });
   };
-
-  if (isLoading) return <div>Loading useTodos...</div>;
-  if (isError) return <div>Error: {error?.message}</div>;
 
   return (
     <div className="w-full max-w-md space-y-2">
