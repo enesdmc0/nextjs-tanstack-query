@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 
-import { Todos } from "./todos";
-import { NewTodo } from "./new-todo";
 import { getTodos } from "@/lib/action";
+import { Todos } from "@/components/todos";
+import { NewTodo } from "../components/new-todo";
 
 const Home = async () => {
   const queryClient = new QueryClient();
