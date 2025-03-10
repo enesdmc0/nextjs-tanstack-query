@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Todo } from "@/lib/pocketbase";
 import { useDeleteTodo, useUpdateTodoStatus } from "@/lib/useTodos";
+import Link from "next/link";
 
 interface Props {
   todo: Todo;
@@ -31,7 +32,7 @@ export const TodoItem = ({ todo }: Props) => {
       }`}
     >
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <Link href={todo.id} className="flex items-center gap-3">
           <button
             disabled={isUpdatePending}
             onClick={() => handleUpdate(todo)}
@@ -58,7 +59,7 @@ export const TodoItem = ({ todo }: Props) => {
           <span className={`text-white ${todo.completed ? "line-through text-gray-400" : ""}`}>
             {todo.title}
           </span>
-        </div>
+        </Link>
 
         <div className="flex items-center gap-2">
           <button

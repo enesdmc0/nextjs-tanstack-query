@@ -17,7 +17,7 @@ const Home = async () => {
     <main className="min-h-screen bg-black flex flex-col items-center gap-8 py-10 px-4">
       <NewTodo />
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>Suspense Loading...</div>}>
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Todos />
         </HydrationBoundary>

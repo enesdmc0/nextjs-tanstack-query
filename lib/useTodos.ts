@@ -1,12 +1,19 @@
 "use client"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createTodo, deleteTodo, getTodos, updateTodo } from "./action";
+import { createTodo, deleteTodo, getTodo, getTodos, updateTitle, updateTodo } from "./action";
 // import { Todo } from "./pocketbase";
 
 export const useTodos = () => {
     return useQuery({
         queryKey: ["todos"],
         queryFn: getTodos
+    })
+}
+
+export const useTodo = (id: string) => {
+    return useQuery({
+        queryKey: ["todo", id],
+        queryFn: () => getTodo(id)
     })
 }
 
@@ -56,7 +63,18 @@ export const useUpdateTodoStatus = () => {
 //     });
 // };
 
+export const useUpdateTodoTitle = () => {
+    const queryClient = useQueryClient();
 
+    return useMutation({
+        mutationFn: ({ id, title }: { id: string; title: string }) => updateTitle(id, title),
+        onSuccess: (_, { id }) => {
+            queryClient.invalidateQueries({ queryKey: ["todo", id] })
+            queryClient.invalidateQueries({ queryKey: ["todos"] });
+        }
+    })
+
+}
 
 export const useDeleteTodo = () => {
     const queryClient = useQueryClient();
@@ -107,6 +125,9 @@ export const useCreateTodo = () => {
 }
 
 // export const useCreateTodo = () => {
+
+
+
 //     const queryClient = useQueryClient();
 
 //     return useMutation({
