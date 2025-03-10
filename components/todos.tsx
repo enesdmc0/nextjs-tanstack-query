@@ -3,7 +3,9 @@ import { useTodos } from "@/lib/useTodos";
 import { TodoItem } from "./todo-item";
 
 export const Todos = () => {
-  const { data } = useTodos();
+  const { data, isPending } = useTodos();
+
+  if (isPending) return <div className="text-white">Yükleniyor...</div>;
 
   return (
     <div className="w-full max-w-md space-y-2 grid grid-cols-2 gap-5">

@@ -9,8 +9,8 @@ interface Props {
 export const TodoItem = ({ todo }: Props) => {
   const [expandedTodo, setExpandedTodo] = useState<string | null>(null);
 
-  const { mutate: deleteMutate } = useDeleteTodo();
-  const { mutate: updateMutate } = useUpdateTodoStatus();
+  const { mutate: deleteMutate, isPending: isPendingDelete } = useDeleteTodo();
+  const { mutate: updateMutate, isPending: isUpdatePending } = useUpdateTodoStatus();
 
   const handleUpdate = (todo: Todo) => {
     updateMutate({
@@ -33,8 +33,9 @@ export const TodoItem = ({ todo }: Props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
+            disabled={isUpdatePending}
             onClick={() => handleUpdate(todo)}
-            className={`size-5 flex-shrink-0 border rounded-md flex items-center justify-center transition-colors ${
+            className={` disabled:cursor-not-allowed size-5 flex-shrink-0 border rounded-md flex items-center justify-center transition-colors ${
               todo.completed
                 ? "bg-green-500 border-green-500"
                 : "border-gray-400 hover:border-white"
@@ -62,7 +63,7 @@ export const TodoItem = ({ todo }: Props) => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setExpandedTodo(expandedTodo === todo.id ? null : todo.id)}
-            className="text-gray-400 hover:text-white"
+            className=" text-gray-400 hover:text-white"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -86,8 +87,9 @@ export const TodoItem = ({ todo }: Props) => {
           <div className="flex items-center justify-between text-xs text-gray-400">
             <span>Oluşturma: {new Date(todo.created).toLocaleString("tr-TR")}</span>
             <button
+              disabled={isPendingDelete}
               onClick={() => handleDelete(todo.id)}
-              className="text-red-400 hover:text-red-300 px-2 py-1"
+              className="disabled:cursor-not-allowed text-red-400 hover:text-red-300 px-2 py-1"
             >
               Sil
             </button>
