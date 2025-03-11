@@ -1,4 +1,5 @@
 "use server"
+import { revalidatePath } from "next/cache";
 import { pb, Todo } from "./pocketbase";
 
 const x_token = process.env.POCKETBASE_TOKEN!
@@ -49,6 +50,7 @@ export const createTodo = async ({ title }: { title: string }) => {
         }, {
             headers: { x_token },
         });
+        revalidatePath("/")
         return todo as Todo;
     }
     catch (error) {
@@ -63,6 +65,7 @@ export const deleteTodo = async (id: string) => {
         await pb.collection("todos").delete(id, {
             headers: { x_token },
         });
+        revalidatePath("/")
         return { success: true }
     }
     catch (error) {
@@ -79,6 +82,8 @@ export const updateTodo = async (id: string, completed: boolean) => {
         }, {
             headers: { x_token },
         });
+        revalidatePath("/")
+
         return { success: true }
     }
     catch (error) {
@@ -95,6 +100,8 @@ export const updateTitle = async (id: string, title: string) => {
         }, {
             headers: { x_token },
         })
+        revalidatePath("/")
+        revalidatePath(`/${id}`)
         return { success: true }
     }
     catch (error) {
