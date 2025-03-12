@@ -1,9 +1,9 @@
 "use client";
 
-import { ActionResponse, login } from "@/lib/auth";
+import { LoginActionResponse, login } from "@/lib/auth";
 import { useActionState } from "react";
 
-const initialState: ActionResponse = {
+const initialState: LoginActionResponse = {
   success: false,
   message: "",
 };
