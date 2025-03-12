@@ -1,4 +1,5 @@
-import Pocketbase from 'pocketbase';
+import { cookies } from 'next/headers';
+import PocketBase from 'pocketbase';
 
 export interface Todo {
     collectionId: string;
@@ -10,8 +11,22 @@ export interface Todo {
     updated: string;
 }
 
-export const pb = new Pocketbase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
+
+export async function getPocketBase() {
+    const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
+
+    if (typeof window === 'undefined') {
+        const cookieStore = await cookies();
+        const authCookie = cookieStore.get('pb_auth');
+
+        if (authCookie) {
+            pb.authStore.loadFromCookie(`pb_auth=${authCookie.value}`);
+        }
+    }
+
+    return pb;
+}
 
 export const getClientPocketbase = () => {
-    return new Pocketbase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
+    return new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
 }
