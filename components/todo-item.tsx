@@ -32,7 +32,7 @@ export const TodoItem = ({ todo }: Props) => {
       }`}
     >
       <div className="flex items-center justify-between">
-        <Link href={todo.id} className="flex items-center gap-3">
+        <Link href={`/todo/${todo.id}`} className="flex items-center gap-3">
           <button
             disabled={isUpdatePending}
             onClick={() => handleUpdate(todo)}

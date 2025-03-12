@@ -16,7 +16,7 @@ const LoginPage = () => {
     if (state.success) {
       router.push("/");
     }
-  }, [state, router]);
+  }, [state]);
 
   return (
     <main className="min-h-screen bg-black flex flex-col items-center gap-8 py-10 px-4">

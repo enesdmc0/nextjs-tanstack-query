@@ -23,7 +23,6 @@ export async function getPocketBase() {
             pb.authStore.loadFromCookie(`pb_auth=${authCookie.value}`);
         }
     }
-
     return pb;
 }
 

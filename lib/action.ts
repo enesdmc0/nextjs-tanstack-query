@@ -1,6 +1,6 @@
 "use server"
 import { revalidatePath } from "next/cache";
-import { pb, Todo } from "./pocketbase";
+import { getPocketBase, Todo } from "./pocketbase";
 
 const x_token = process.env.POCKETBASE_TOKEN!
 
@@ -12,6 +12,7 @@ const promise = (ms: number) => {
 export const getTodos = async () => {
     try {
         await promise(1000);
+        const pb = await getPocketBase();
         const todos = await pb.collection("todos").getList(1, 30, {
             headers: { x_token },
         });
@@ -26,6 +27,8 @@ export const getTodos = async () => {
 export const getTodo = async (id: string) => {
     try {
         await promise(1000);
+        const pb = await getPocketBase();
+
         const todo = await pb.collection("todos").getOne(id, {
             headers: { x_token },
         })
@@ -43,6 +46,7 @@ export const createTodo = async ({ title }: { title: string }) => {
         if (!title || title.trim() === "") {
             throw new Error("Title is required")
         }
+        const pb = await getPocketBase();
 
         const todo = await pb.collection("todos").create({
             title,
@@ -62,6 +66,8 @@ export const createTodo = async ({ title }: { title: string }) => {
 export const deleteTodo = async (id: string) => {
     try {
         await promise(1000);
+        const pb = await getPocketBase();
+
         await pb.collection("todos").delete(id, {
             headers: { x_token },
         });
@@ -77,6 +83,8 @@ export const deleteTodo = async (id: string) => {
 export const updateTodo = async (id: string, completed: boolean) => {
     try {
         await promise(1000);
+        const pb = await getPocketBase();
+
         await pb.collection("todos").update(id, {
             completed,
         }, {
@@ -95,6 +103,8 @@ export const updateTodo = async (id: string, completed: boolean) => {
 export const updateTitle = async (id: string, title: string) => {
     try {
         await promise(1000);
+        const pb = await getPocketBase();
+
         await pb.collection("todos").update(id, {
             title
         }, {

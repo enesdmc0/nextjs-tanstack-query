@@ -7,7 +7,6 @@ import { NewTodo } from "../components/new-todo";
 
 const Home = async () => {
   const queryClient = new QueryClient();
-
   await queryClient.prefetchQuery({
     queryKey: ["todos"],
     queryFn: getTodos,
@@ -16,7 +15,6 @@ const Home = async () => {
   return (
     <main className="min-h-screen bg-black flex flex-col items-center gap-8 py-10 px-4">
       <NewTodo />
-
       <Suspense fallback={<div>Suspense Loading...</div>}>
         <HydrationBoundary state={dehydrate(queryClient)}>
           <Todos />
