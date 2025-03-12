@@ -1,7 +1,7 @@
 "use client";
-
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
 import { LoginActionResponse, login } from "@/lib/auth";
-import { useActionState } from "react";
 
 const initialState: LoginActionResponse = {
   success: false,
@@ -9,7 +9,14 @@ const initialState: LoginActionResponse = {
 };
 
 const LoginPage = () => {
+  const router = useRouter();
   const [state, action, isPending] = useActionState(login, initialState);
+
+  useEffect(() => {
+    if (state.success) {
+      router.push("/");
+    }
+  }, [state, router]);
 
   return (
     <main className="min-h-screen bg-black flex flex-col items-center gap-8 py-10 px-4">
