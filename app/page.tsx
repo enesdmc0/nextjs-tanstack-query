@@ -4,6 +4,7 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 import { getTodos } from "@/lib/action";
 import { Todos } from "@/components/todos";
 import { NewTodo } from "../components/new-todo";
+import LogoutButton from "@/components/logout-button";
 
 const Home = async () => {
   const queryClient = new QueryClient();
@@ -14,6 +15,7 @@ const Home = async () => {
 
   return (
     <main className="min-h-screen bg-black flex flex-col items-center gap-8 py-10 px-4">
+      <LogoutButton />
       <NewTodo />
       <Suspense fallback={<div>Suspense Loading...</div>}>
         <HydrationBoundary state={dehydrate(queryClient)}>
