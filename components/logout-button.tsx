@@ -1,13 +1,14 @@
 "use client";
-import { logout } from "@/lib/auth";
+import { useLogout } from "@/lib/useUser";
 import { useTransition } from "react";
 
-const LogoutButton = () => {
+export const LogoutButton = () => {
   const [isPending, startTransition] = useTransition();
+  const { mutate } = useLogout();
 
   const handleClick = () => {
     startTransition(async () => {
-      await logout();
+      mutate();
     });
   };
 
@@ -21,5 +22,3 @@ const LogoutButton = () => {
     </button>
   );
 };
-
-export default LogoutButton;

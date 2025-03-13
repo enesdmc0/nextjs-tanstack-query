@@ -19,7 +19,7 @@ const TodoPage = async ({ params }: Props) => {
   });
 
   return (
-    <main className="min-h-screen bg-black flex flex-col items-center gap-8 py-10 px-4">
+    <main className="min-h-screen flex flex-col items-center gap-8 py-10 px-4">
       <Link href="/" className="font-bold text-white">
         Back to Home
       </Link>

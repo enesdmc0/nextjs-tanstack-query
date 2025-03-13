@@ -1,7 +1,6 @@
 "use client"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createTodo, deleteTodo, getTodo, getTodos, updateTitle, updateTodo } from "./action";
-// import { Todo } from "./pocketbase";
 
 export const useTodos = () => {
     return useQuery({
@@ -16,6 +15,7 @@ export const useTodo = (id: string) => {
         queryFn: () => getTodo(id)
     })
 }
+
 
 export const useUpdateTodoStatus = () => {
     const queryClient = useQueryClient();
