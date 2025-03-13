@@ -1,7 +1,8 @@
 "use client";
 
 import { RegisterActionResponse, register } from "@/lib/auth";
-import { useActionState } from "react";
+import { useRouter } from "next/navigation";
+import { useActionState, useEffect } from "react";
 
 const initialState: RegisterActionResponse = {
   success: false,
@@ -9,7 +10,15 @@ const initialState: RegisterActionResponse = {
 };
 
 const RegisterPage = () => {
+  const router = useRouter();
   const [state, action, isPending] = useActionState(register, initialState);
+
+  useEffect(() => {
+    console.log(state, "register state");
+    if (state.success) {
+      router.push("/login");
+    }
+  }, [state]);
 
   return (
     <main className="min-h-screen bg-black flex flex-col items-center gap-8 py-10 px-4">
@@ -43,7 +52,7 @@ const RegisterPage = () => {
           disabled={isPending}
           className="p-2 bg-blue-500 rounded-md text-white font-semibold"
         >
-          {isPending ? "Loading..." : "Login"}
+          {isPending ? "Loading..." : "Register"}
         </button>
         {state.message && (
           <p className={state.success ? "text-green-500" : "text-red-500"}>{state.message}</p>

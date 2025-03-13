@@ -72,6 +72,7 @@ export const register = async (prevState: RegisterActionResponse | null, formDat
         const user = await pb.collection("users").create({
             email,
             password,
+            passwordConfirm,
             emailVisibility: true,
             verified: false, // TODO: Send verification email
             name,
