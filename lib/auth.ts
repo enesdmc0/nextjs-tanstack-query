@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { getPocketBase } from "./pocketbase";
 import { redirect } from "next/navigation";
+import { User } from "./type";
 
 export interface LoginActionResponse {
     success: boolean;
@@ -98,7 +99,7 @@ export async function getUser() {
 
     if (pb.authStore.isValid) {
         try {
-            return pb.authStore.record;
+            return pb.authStore.record as User;
         } catch {
             const cookieStore = await cookies();
             cookieStore.delete('pb_auth');

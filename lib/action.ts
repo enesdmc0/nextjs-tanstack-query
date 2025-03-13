@@ -1,6 +1,7 @@
 "use server"
 import { revalidatePath } from "next/cache";
 import { getPocketBase, Todo } from "./pocketbase";
+import { getUser } from "./auth";
 
 const x_token = process.env.POCKETBASE_TOKEN!
 
@@ -48,9 +49,15 @@ export const createTodo = async ({ title }: { title: string }) => {
         }
         const pb = await getPocketBase();
 
+        const user = await getUser();
+        if (!user) {
+            throw new Error("User not found")
+        }
+
         const todo = await pb.collection("todos").create({
             title,
             completed: false,
+            userId: user.id,
         }, {
             headers: { x_token },
         });
