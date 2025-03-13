@@ -1,8 +1,9 @@
 "use client";
-
-import { RegisterActionResponse, register } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
+
+import { register } from "@/lib/auth";
+import { RegisterActionResponse } from "@/lib/type";
 
 const initialState: RegisterActionResponse = {
   success: false,

@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Todo } from "@/lib/pocketbase";
-import { useDeleteTodo, useUpdateTodoStatus } from "@/lib/useTodos";
 import Link from "next/link";
+import { useState } from "react";
+import { Todo } from "@/lib/type";
+import { useDeleteTodo, useUpdateTodoStatus } from "@/lib/useTodos";
 
 interface Props {
   todo: Todo;

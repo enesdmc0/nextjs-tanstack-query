@@ -1,7 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
-import { LoginActionResponse, login } from "@/lib/auth";
+
+import { login } from "@/lib/auth";
+import { LoginActionResponse } from "@/lib/type";
 
 const initialState: LoginActionResponse = {
   success: false,

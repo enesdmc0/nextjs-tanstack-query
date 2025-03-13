@@ -1,18 +1,9 @@
-import { cookies } from 'next/headers';
+"use server";
 import PocketBase from 'pocketbase';
-
-export interface Todo {
-    collectionId: string;
-    collectionName: string;
-    completed: boolean;
-    created: string;
-    id: string;
-    title: string;
-    updated: string;
-}
+import { cookies } from 'next/headers';
 
 
-export async function getPocketBase() {
+export const getPocketBase = async () => {
     const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
 
     if (typeof window === 'undefined') {

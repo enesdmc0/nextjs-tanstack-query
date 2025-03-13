@@ -1,37 +1,8 @@
 "use server";
-
 import { cookies } from "next/headers";
 import { getPocketBase } from "./pocketbase";
 import { redirect } from "next/navigation";
-import { User } from "./type";
-
-export interface LoginActionResponse {
-    success: boolean;
-    message: string;
-    errors?: {
-        [K in keyof LoginFormData]?: string[];
-    };
-}
-
-export interface RegisterActionResponse {
-    success: boolean;
-    message: string;
-    errors?: {
-        [K in keyof RegisterFormData]?: string[];
-    };
-}
-
-export interface LoginFormData {
-    email: string;
-    password: string;
-}
-
-export interface RegisterFormData {
-    email: string;
-    password: string;
-    passwordConfirm: string;
-    name: string;
-}
+import { LoginActionResponse, RegisterActionResponse, User } from "./type";
 
 
 export const login = async (prevState: LoginActionResponse | null, formData: FormData): Promise<LoginActionResponse> => {
@@ -86,15 +57,13 @@ export const register = async (prevState: RegisterActionResponse | null, formDat
     }
 }
 
-
-export async function logout() {
+export const logout = async (): Promise<void> => {
     const cookieStore = await cookies();
     cookieStore.delete('pb_auth');
     redirect('/login');
 }
 
-
-export async function getUser() {
+export const getUser = async (): Promise<User | null> => {
     const pb = await getPocketBase();
 
     if (pb.authStore.isValid) {
