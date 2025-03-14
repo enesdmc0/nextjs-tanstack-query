@@ -1,7 +1,8 @@
 "use server"
 import { revalidatePath } from "next/cache";
-import { getPocketBase, Todo } from "./pocketbase";
+import { getPocketBase } from "./pocketbase";
 import { getUser } from "./auth";
+import { Todo } from "./type";
 
 const x_token = process.env.POCKETBASE_TOKEN!
 

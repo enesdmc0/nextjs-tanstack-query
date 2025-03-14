@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 
@@ -42,6 +43,7 @@ const LoginPage = () => {
         >
           {isPending ? "Loading..." : "Login"}
         </button>
+        <Link href="/register" className="text-white text-sm ml-auto underline">Register</Link>
         {state.message && (
           <p className={state.success ? "text-green-500" : "text-red-500"}>{state.message}</p>
         )}
