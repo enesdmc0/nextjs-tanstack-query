@@ -11,7 +11,7 @@ const initialState: LoginActionResponse = {
   message: "",
 };
 
-const Client = () => {
+export const Client = () => {
   const router = useRouter();
   const [state, action, isPending] = useActionState(login, initialState);
 
@@ -54,4 +54,3 @@ const Client = () => {
   );
 };
 
-export default Client;

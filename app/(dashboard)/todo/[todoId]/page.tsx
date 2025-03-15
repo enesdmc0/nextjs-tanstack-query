@@ -4,12 +4,20 @@ import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query
 
 import { getTodo } from "@/lib/action";
 import TodoDetail from "@/components/todo-detail";
+import { getUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 interface Props {
   params: Promise<{ todoId: string }>;
 }
 
 const TodoPage = async ({ params }: Props) => {
+  const user = await getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
   const queryClient = new QueryClient();
   const { todoId } = await params;
 
