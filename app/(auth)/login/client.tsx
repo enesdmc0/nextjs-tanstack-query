@@ -16,10 +16,11 @@ export const Client = () => {
   const [state, action, isPending] = useActionState(login, initialState);
 
   useEffect(() => {
+    console.log(state, "login state");
     if (state.success) {
       router.push("/");
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <main className="min-h-screen bg-black flex flex-col items-center gap-8 py-10 px-4">
@@ -53,4 +54,3 @@ export const Client = () => {
     </main>
   );
 };
-

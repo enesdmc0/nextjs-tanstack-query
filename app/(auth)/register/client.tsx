@@ -20,7 +20,7 @@ export const Client = () => {
     if (state.success) {
       router.push("/login");
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <main className="min-h-screen bg-black flex flex-col items-center gap-8 py-10 px-4">
