@@ -6,14 +6,14 @@ import { Todo } from "./type";
 
 const x_token = process.env.POCKETBASE_TOKEN!
 
-const promise = (ms: number) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
+// const promise = (ms: number) => {
+//     return new Promise((resolve) => setTimeout(resolve, ms));
+// }
 
 
 export const getTodos = async () => {
     try {
-        await promise(1000);
+        // await promise(1000);
         const pb = await getPocketBase();
         const todos = await pb.collection("todos").getList(1, 30, {
             headers: { x_token },
@@ -28,7 +28,7 @@ export const getTodos = async () => {
 
 export const getTodo = async (id: string) => {
     try {
-        await promise(1000);
+        // await promise(1000);
         const pb = await getPocketBase();
 
         const todo = await pb.collection("todos").getOne(id, {
@@ -44,7 +44,7 @@ export const getTodo = async (id: string) => {
 
 export const createTodo = async ({ title }: { title: string }) => {
     try {
-        await promise(1000);
+        // await promise(1000);
         if (!title || title.trim() === "") {
             throw new Error("Title is required")
         }
@@ -73,7 +73,7 @@ export const createTodo = async ({ title }: { title: string }) => {
 
 export const deleteTodo = async (id: string) => {
     try {
-        await promise(1000);
+        // await promise(1000);
         const pb = await getPocketBase();
 
         await pb.collection("todos").delete(id, {
@@ -90,7 +90,7 @@ export const deleteTodo = async (id: string) => {
 
 export const updateTodo = async (id: string, completed: boolean) => {
     try {
-        await promise(1000);
+        // await promise(1000);
         const pb = await getPocketBase();
 
         await pb.collection("todos").update(id, {
@@ -110,7 +110,7 @@ export const updateTodo = async (id: string, completed: boolean) => {
 
 export const updateTitle = async (id: string, title: string) => {
     try {
-        await promise(1000);
+        // await promise(1000);
         const pb = await getPocketBase();
 
         await pb.collection("todos").update(id, {
