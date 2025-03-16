@@ -7,6 +7,14 @@ import TodoDetail from "@/components/todo-detail";
 import { getUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
+// export async function generateStaticParams() {
+//   const todos = await getTodos();
+
+//   return todos.map((todo) => ({
+//     todoId: todo.id,
+//   }));
+// }
+
 interface Props {
   params: Promise<{ todoId: string }>;
 }
@@ -41,4 +49,16 @@ const TodoPage = async ({ params }: Props) => {
   );
 };
 
+// Opsiyonel: Belirli bir süre sonra sayfaları otomatik yenileme (ISR)
+export const revalidate = 3600; // 1 saat
+
+// Opsiyonel: Sadece generateStaticParams'da belirtilen route'lara izin verme
+// export const dynamicParams = false;
+
 export default TodoPage;
+
+
+// GenerateStaticParams ile ilgili notlar:
+
+// generateStaticParams fonksiyonu, sayfanın statik olarak üretilmesi gereken parametreleri döndürmelidir.
+// Burada kullanıcı login olmadan yani getUser fonksiyonu çalışmadan sayfaya erişim sağlanamayacağı için, generateStaticParams fonksiyonu kullanılamaz.
