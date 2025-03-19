@@ -4,6 +4,9 @@ import { getPocketBase } from "./pocketbase";
 import { redirect } from "next/navigation";
 import { LoginActionResponse, RegisterActionResponse, User } from "./type";
 
+const promise = (ms: number) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export const login = async (prevState: LoginActionResponse | null, formData: FormData): Promise<LoginActionResponse> => {
     try {
@@ -58,6 +61,7 @@ export const register = async (prevState: RegisterActionResponse | null, formDat
 }
 
 export const logout = async (): Promise<void> => {
+    await promise(1000);
     const cookieStore = await cookies();
     cookieStore.delete('pb_auth');
     redirect('/login');
